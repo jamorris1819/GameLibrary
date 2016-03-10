@@ -23,12 +23,22 @@ namespace GameLibrary
         private static MouseState mouseState;
         private static MouseState lastMouseState;
 
+        private static bool keyboardInputListening = false;
+
         /// <summary>
         /// Returns the current state of the keyboard.
         /// </summary>
         public static KeyboardState KeyboardState
         {
             get { return keyboardState; }
+        }
+
+        /// <summary>
+        /// Returns whether the keyboard is listening for input.
+        /// </summary>
+        public static bool KeyboardIsListening
+        {
+            get { return keyboardInputListening; }
         }
 
         /// <summary>
@@ -176,6 +186,36 @@ namespace GameLibrary
             if (buttonPressed == ButtonPressed.Middle && mouseState.MiddleButton == ButtonState.Pressed)
                 return true;
             return false;
+        }
+
+        /// <summary>
+        /// Starts the keyboard listening for input.
+        /// </summary>
+        public static void KeyboardListen()
+        {
+            keyboardInputListening = true;
+        }
+
+        /// <summary>
+        /// Stops the keyboard listening for input.
+        /// </summary>
+        public static void KeyboardStopListening()
+        {
+            keyboardInputListening = false;
+        }
+
+        /// <summary>
+        /// Gets the keys being pressed.
+        /// </summary>
+        /// <returns></returns>
+        public static List<Keys> GetKeys()
+        {
+            Keys[] keys = keyboardState.GetPressedKeys();
+            List<Keys> keysList = new List<Keys>();
+            foreach (Keys key in keys)
+                if (KeyPressed(key))
+                    keysList.Add(key);
+            return keysList;
         }
     }
 }

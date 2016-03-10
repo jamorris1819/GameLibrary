@@ -43,13 +43,7 @@ namespace GameLibrary.Controls
         public string Text
         {
             get { return text; }
-            set
-            {
-                text = value;
-                // We will update the rectangle here. If this is being edited, it infers that this is a text based control.
-                Rectangle newRegion = new Rectangle((int)position.X, (int)position.Y, (int)spriteFont.MeasureString(text).X, (int)spriteFont.MeasureString(text).Y);
-                region = newRegion;
-            }
+            set { text = value; }
         }
 
         /// <summary>
