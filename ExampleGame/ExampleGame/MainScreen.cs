@@ -18,6 +18,7 @@ namespace ExampleGame
     {
         Label title;
         Textbox tb;
+        Texture2D tex;
 
         public MainScreen(Game game, GameStateManager manager)
             : base(game, manager)
@@ -35,10 +36,12 @@ namespace ExampleGame
             base.LoadContent();
             ContentManager Content = Game.Content;
 
+            Tileset t = new Tileset(GraphicsDevice, Content.Load<Texture2D>("Sprites"), new Vector2(16, 16));
+            tex = t.GetTile(0, 0);
             title = new Label();
             title.Text = "Space Cheese Mining";
             title.SpriteFont = mainFont;
-            title.Position = new Vector2(100, 100);
+            title.Position = new Vector2(200, 100);
             ControlManager.Add(title);
 
             tb = new Textbox()
@@ -67,6 +70,7 @@ namespace ExampleGame
             GameRef.spriteBatch.Begin();
             base.Draw(gameTime);
             ControlManager.Draw(GameRef.spriteBatch);
+            GameRef.spriteBatch.Draw(tex, new Rectangle(240, 0, 16, 16), Color.White);
             GameRef.spriteBatch.End();
         }
 

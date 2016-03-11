@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
+using System.Drawing;
+using System.Windows.Forms;
+
 using GameLibrary;
 using GameLibrary.Controls;
 namespace ExampleGame
@@ -24,9 +27,15 @@ namespace ExampleGame
         GameStateManager manager;
         public MainScreen MainScreen;
 
+        RenderTarget2D target;
+
+        int scale = 4;
+
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferHeight = 224;
+            graphics.PreferredBackBufferWidth = 256;
             this.IsMouseVisible = true;
             Content.RootDirectory = "Content";
             Components.Add(new InputHandler(this));
@@ -45,8 +54,13 @@ namespace ExampleGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
+            IntPtr ptr = this.Window.Handle;
+            Form form = (Form)System.Windows.Forms.Control.FromHandle(ptr);
+            form.Size = new Size(graphics.PreferredBackBufferWidth * scale, graphics.PreferredBackBufferHeight * scale);
+            form.Location = new System.Drawing.Point((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width - (graphics.PreferredBackBufferWidth * scale)) / 2,
+                (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height - (graphics.PreferredBackBufferHeight * scale)) / 2);
+
         }
 
         /// <summary>
@@ -57,7 +71,9 @@ namespace ExampleGame
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            target = new RenderTarget2D(graphics.GraphicsDevice,
+                     400, //Same width as backbuffer
+                     100);
             // TODO: use this.Content to load your game content here
         }
 
@@ -78,7 +94,7 @@ namespace ExampleGame
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == Microsoft.Xna.Framework.Input.ButtonState.Pressed)
                 this.Exit();
 
             // TODO: Add your update logic here
@@ -92,7 +108,8 @@ namespace ExampleGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Microsoft.Xna.Framework.Color.CornflowerBlue);
+            
 
             // TODO: Add your drawing code here
 

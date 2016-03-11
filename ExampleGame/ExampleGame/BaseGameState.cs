@@ -33,11 +33,11 @@ namespace ExampleGame
 
         protected override void LoadContent()
         {
+            base.LoadContent();
             ContentManager Content = Game.Content;
             // Load in all data, ie sounds, graphics, etc
             mainFont = Content.Load<SpriteFont>("mainFont");
             ControlManager = new ControlManager(mainFont);
-            base.LoadContent();
         }
 
         protected override void StateChange(object sender, EventArgs e)

@@ -7,3 +7,4 @@ C:\Users\Jacob\Documents\GitHub\GameLibrary\ExampleGame\ExampleGame\bin\x86\Debu
 C:\Users\Jacob\Documents\GitHub\GameLibrary\ExampleGame\ExampleGame\bin\x86\Debug\GameLibrary.pdb
 C:\Users\Jacob\Documents\GitHub\GameLibrary\ExampleGame\ExampleGame\obj\x86\Debug\ExampleGame.exe
 C:\Users\Jacob\Documents\GitHub\GameLibrary\ExampleGame\ExampleGame\obj\x86\Debug\ExampleGame.pdb
+C:\Users\Jacob\Documents\GitHub\GameLibrary\ExampleGame\ExampleGame\bin\x86\Debug\Content\Sprites.xnb
