@@ -6,7 +6,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace GameLibrary
+namespace GameLibrary.Graphics
 {
     public class SolidColorTexture : Texture2D
     {

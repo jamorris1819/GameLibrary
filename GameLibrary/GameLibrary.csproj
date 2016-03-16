@@ -61,6 +61,8 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\AudioManager.cs" />
+    <Compile Include="Components\CharacterController.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Controls\Control.cs" />
     <Compile Include="Controls\ControlManager.cs" />
@@ -71,6 +73,8 @@
     <Compile Include="Controls\Textbox.cs" />
     <Compile Include="GameState.cs" />
     <Compile Include="GameStateManager.cs" />
+    <Compile Include="Graphics\AnimationController.cs" />
+    <Compile Include="Graphics\ScrollSprite.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="InputHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

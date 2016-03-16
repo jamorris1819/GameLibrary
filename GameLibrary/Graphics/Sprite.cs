@@ -18,10 +18,12 @@ namespace GameLibrary.Graphics
     /// </summary>
     public class Sprite
     {
-        private Texture2D texture;
-        private Vector2 position;
-        private Rectangle region;
-        private Color color;
+        protected Texture2D texture;
+        protected Vector2 position;
+        protected Rectangle region;
+        protected Color color;
+        protected Vector2 root;
+        protected bool border;
 
         /// <summary>
         /// The texture drawn by the sprite.
@@ -46,13 +48,25 @@ namespace GameLibrary.Graphics
         /// </summary>
         public Rectangle Region
         {
-            get { return new Rectangle((int)position.X, (int)position.Y, (int)texture.Width, (int)texture.Height); }
+            get { return new Rectangle((int)(root.X + position.X), (int)(position.Y + root.Y), (int)texture.Width, (int)texture.Height); }
         }
 
+        /// <summary>
+        /// The draw color of the sprite.
+        /// </summary>
         public Color Color
         {
             get { return color; }
             set { color = value; }
+        }
+
+        /// <summary>
+        /// The root position to draw from.
+        /// </summary>
+        public Vector2 Root
+        {
+            get { return root; }
+            set { root = value; }
         }
 
         /// <summary>
@@ -62,12 +76,55 @@ namespace GameLibrary.Graphics
         /// <param name="position">Location on screen to draw the sprite</param>
         public Sprite(Texture2D texture, Vector2 position)
         {
+            root = Vector2.Zero;
             this.texture = texture;
             this.position = position;
         }
 
+        /// <summary>
+        /// Constructor for the sprite.
+        /// </summary>
+        /// <param name="texture">Texture to be drawn</param>
+        /// <param name="position">Location on screen to draw the sprite</param>
+        /// <param name="border">Whether to display a border</param>
+        public Sprite(Texture2D texture, Vector2 position, bool border)
+        {
+            root = Vector2.Zero;
+            this.texture = texture;
+            this.position = position;
+            this.border = border;
+        }
+
+        /// <summary>
+        /// Constructor for the sprite.
+        /// </summary>
+        /// <param name="texture">Texture to be drawn</param>
+        /// <param name="position">Location on screen to draw the sprite</param>
+        public Sprite(Texture2D texture)
+        {
+            root = Vector2.Zero;
+            this.texture = texture;
+            this.position = Vector2.Zero;
+        }
+
+        /// <summary>
+        /// Draws the sprite.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            if (border)
+            {
+                spriteBatch.Draw(texture, position + new Vector2(-1, -1), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(0, -1), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(1, -1), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(-1, 0), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(1, 0), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(-1, 1), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(0, 1), Color.Black);
+                spriteBatch.Draw(texture, position + new Vector2(1, 1), Color.Black);
+            }
+
             spriteBatch.Draw(texture, Region, Color.White);
         }
     }

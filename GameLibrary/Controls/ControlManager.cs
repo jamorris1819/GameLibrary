@@ -51,6 +51,15 @@ namespace GameLibrary.Controls
         /// <summary>
         /// Creates the ControlManager.
         /// </summary>
+        public ControlManager()
+            : base()
+        {
+            ControlManager.spriteFont = null;
+        }
+
+        /// <summary>
+        /// Creates the ControlManager.
+        /// </summary>
         /// <param name="spriteFont">SpriteFont to be used as default by children</param>
         /// <param name="capacity">Capacity of the ControlManager</param>
         public ControlManager(SpriteFont spriteFont, int capacity)

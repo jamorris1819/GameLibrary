@@ -11,9 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-using GameLibrary.Graphics;
-
-namespace GameLibrary
+namespace GameLibrary.Graphics
 {
     /// <summary>
     /// Draws and animates frames.
@@ -61,18 +59,28 @@ namespace GameLibrary
         }
 
         /// <summary>
+        /// The current timer status of the animation.
+        /// </summary>
+        public int Timer
+        {
+            get { return timer; }
+            set { timer = value; }
+        }
+
+        /// <summary>
         /// Constructor for the animation.
         /// </summary>
         /// <param name="frames">List of frames to be played</param>
         /// <param name="delay">Delay between frames in milliseconds</param>
-        public Animation(List<Texture2D> frames, Vector2 position, int delay)
-            : base(frames[0], position)
+        public Animation(List<Texture2D> frames, int delay)
+            : base(frames[0])
         {
             this.frames = frames;
             this.delay = delay;
             timer = delay;
             active = true;
             currentFrame = 0;
+            Position = Vector2.Zero;
         }
 
         /// <summary>

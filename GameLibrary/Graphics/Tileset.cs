@@ -11,7 +11,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace GameLibrary
+namespace GameLibrary.Graphics
 {
     /// <summary>
     /// A class which holds all the individual images in a tileset.

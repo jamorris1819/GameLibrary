@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -22,6 +23,8 @@ namespace GameLibrary
         private static KeyboardState lastKeyboardState;
         private static MouseState mouseState;
         private static MouseState lastMouseState;
+
+        private static GamePadState gamePad;
 
         private static bool keyboardInputListening = false;
 
@@ -85,6 +88,7 @@ namespace GameLibrary
             : base(game)
         {
             keyboardState = Keyboard.GetState();
+            gamePad = GamePad.GetState(0);
             mouseState = Microsoft.Xna.Framework.Input.Mouse.GetState();
         }
 
@@ -107,6 +111,8 @@ namespace GameLibrary
 
             lastMouseState = mouseState;
             mouseState = Microsoft.Xna.Framework.Input.Mouse.GetState();
+
+            gamePad = GamePad.GetState(0);
 
             base.Update(gameTime);
         }
@@ -216,6 +222,11 @@ namespace GameLibrary
                 if (KeyPressed(key))
                     keysList.Add(key);
             return keysList;
+        }
+
+        public static ButtonState b()
+        {
+            return gamePad.Buttons.A;
         }
     }
 }
