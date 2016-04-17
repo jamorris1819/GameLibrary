@@ -22,6 +22,9 @@ namespace GameLibrary.Graphics
 
         private Vector2 dimensions;
         private Vector2 tileDimensions;
+        private int margin;
+        private int spacing;
+        private Vector2 count;
 
         private Texture2D baseImage;
         private Texture2D[,] tiles;
@@ -50,6 +53,26 @@ namespace GameLibrary.Graphics
             get { return tileDimensions; }
         }
 
+        public Texture2D this[int i, int j]
+        {
+            get { return GetTile(i, j); }
+        }
+
+        public Texture2D this[int i]
+        {
+            get
+            {
+                int x = i;
+                int y = 0;
+                while (x > count.X)
+                {
+                    x -= (int)count.X;
+                    y++;
+                }
+                return this[x, y];
+            }
+        }
+
         /// <summary>
         /// Constructor for the tileset class.
         /// </summary>
@@ -61,6 +84,29 @@ namespace GameLibrary.Graphics
             this.graphicsDevice = graphicsDevice;
             this.tileDimensions = tileDimensions;
             this.baseImage = baseImage;
+            this.margin = 0;
+            this.spacing = 0;
+            count.X = baseImage.Width / tileDimensions.X;
+            count.Y = baseImage.Height / tileDimensions.Y;
+            Process();
+        }
+
+        /// <summary>
+        /// Constructor for the tileset class.
+        /// </summary>
+        /// <param name="baseImage">Image to use for the tileset</param>
+        /// <param name="tileDimensions">Size of each tile</param>
+        /// <param name="margin">Initial offset in pixels</param>
+        /// <param name="separation">Spacing between each tile</param>
+        public Tileset(GraphicsDevice graphicsDevice, Texture2D baseImage, Vector2 tileDimensions, int margin, int separation, Vector2 count)
+        {
+            this.dimensions = new Vector2(baseImage.Width, baseImage.Height);
+            this.graphicsDevice = graphicsDevice;
+            this.tileDimensions = tileDimensions;
+            this.baseImage = baseImage;
+            this.margin = margin;
+            this.spacing = separation;
+            this.count = count;
             Process();
         }
 
@@ -70,14 +116,19 @@ namespace GameLibrary.Graphics
         private void Process()
         {
             tiles = new Texture2D[(int)(dimensions.X / tileDimensions.X), (int)(dimensions.Y / tileDimensions.Y)];
-            for (int i = 0; i < dimensions.X / tileDimensions.X; i++)
+            for (int i = 0; i < count.X; i++)
             {
-                for (int j = 0; j < dimensions.Y / tileDimensions.Y; j++)
+                for (int j = 0; j < count.Y; j++)
                 {
                     Texture2D imagePiece = new Texture2D(graphicsDevice, (int)tileDimensions.X, (int)tileDimensions.Y);
                     Color[] data = new Color[(int)(tileDimensions.X * tileDimensions.Y)];
                     // Take the color data from the area we want.
-                    baseImage.GetData(0, new Rectangle(i * (int)tileDimensions.X, j * (int)tileDimensions.Y, (int)tileDimensions.X, (int)tileDimensions.Y), data, 0, data.Length);
+                    Rectangle rect = new Rectangle();
+                    rect.X = margin + (i * spacing) + (i * (int)tileDimensions.X);
+                    rect.Y = margin + (j * spacing) + (j * (int)tileDimensions.Y);
+                    rect.Width = (int)tileDimensions.X;
+                    rect.Height = (int)tileDimensions.Y;
+                    baseImage.GetData(0, rect, data, 0, data.Length);
                     // Copy it into our new piece.
                     imagePiece.SetData(data);
                     tiles[i, j] = imagePiece;

@@ -18,7 +18,6 @@ namespace ExampleGame
     {
         Label title;
         Textbox tb;
-        Texture2D tex;
 
         public MainScreen(Game game, GameStateManager manager)
             : base(game, manager)

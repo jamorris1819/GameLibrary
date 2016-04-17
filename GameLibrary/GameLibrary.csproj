@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Components\AudioManager.cs" />
+    <Compile Include="Components\Camera2D.cs" />
     <Compile Include="Components\CharacterController.cs" />
     <Compile Include="Graphics\Animation.cs" />
     <Compile Include="Controls\Control.cs" />

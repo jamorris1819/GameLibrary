@@ -136,5 +136,14 @@ namespace GameLibrary.Graphics
         {
             currentAnimation.Draw(spriteBatch);
         }
+
+        /// <summary>
+        /// Draws the sprite.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public void Draw(SpriteBatch spriteBatch, SpriteEffects effect)
+        {
+            currentAnimation.Draw(spriteBatch, effect);
+        }
     }
 }

@@ -15,14 +15,15 @@ namespace GameLibrary.Graphics
 {
     public class ScrollSprite : Sprite
     {
-        private int offset;
         private bool enabled;
+        private static float speed;
+        private Rectangle bounds;
 
-        public ScrollSprite(Texture2D texture, Vector2 position)
+        public ScrollSprite(Texture2D texture, Vector2 position, Rectangle bounds)
             : base(texture, position)
         {
-            offset = 0;
             enabled = true;
+            this.bounds = bounds;
         }
 
         /// <summary>
@@ -33,9 +34,9 @@ namespace GameLibrary.Graphics
         {
             if (!enabled)
                 return;
-            offset += 2;
-            if (offset >= texture.Height)
-                offset = 0;
+            position.Y -= speed;
+            if (position.Y < bounds.Y - texture.Height)
+                position.Y = bounds.Y + bounds.Height;
         }
         /// <summary>
         /// Draws the scroll sprite.
@@ -43,8 +44,7 @@ namespace GameLibrary.Graphics
         /// <param name="spriteBatch"></param>
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, position, new Rectangle(0, offset, texture.Width, texture.Height - offset), Color.White);
-            spriteBatch.Draw(texture, position + new Vector2(0, texture.Height - offset), new Rectangle(0, 0, texture.Width, offset), Color.White);
+            spriteBatch.Draw(texture, Region, Color.White);
         }
 
         /// <summary>
@@ -53,6 +53,15 @@ namespace GameLibrary.Graphics
         public void Stop()
         {
             enabled = false;
+        }
+
+        /// <summary>
+        /// Sets the speed of the scroller.
+        /// </summary>
+        /// <param name="inSpeed"></param>
+        public static void SetSpeed(float inSpeed)
+        {
+            speed = inSpeed;
         }
     }
 }

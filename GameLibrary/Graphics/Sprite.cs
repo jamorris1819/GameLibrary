@@ -70,6 +70,15 @@ namespace GameLibrary.Graphics
         }
 
         /// <summary>
+        /// Whether or not the sprite is visible.
+        /// </summary>
+        public bool Visible
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Constructor for the sprite.
         /// </summary>
         /// <param name="texture">Texture to be drawn</param>
@@ -79,6 +88,7 @@ namespace GameLibrary.Graphics
             root = Vector2.Zero;
             this.texture = texture;
             this.position = position;
+            Visible = true;
         }
 
         /// <summary>
@@ -93,6 +103,7 @@ namespace GameLibrary.Graphics
             this.texture = texture;
             this.position = position;
             this.border = border;
+            Visible = true;
         }
 
         /// <summary>
@@ -105,6 +116,7 @@ namespace GameLibrary.Graphics
             root = Vector2.Zero;
             this.texture = texture;
             this.position = Vector2.Zero;
+            Visible = true;
         }
 
         /// <summary>
@@ -113,6 +125,8 @@ namespace GameLibrary.Graphics
         /// <param name="spriteBatch"></param>
         public virtual void Draw(SpriteBatch spriteBatch)
         {
+            if (!Visible)
+                return;
             if (border)
             {
                 spriteBatch.Draw(texture, position + new Vector2(-1, -1), Color.Black);
@@ -126,6 +140,15 @@ namespace GameLibrary.Graphics
             }
 
             spriteBatch.Draw(texture, Region, Color.White);
+        }
+
+        /// <summary>
+        /// Draws the sprite.
+        /// </summary>
+        /// <param name="spriteBatch"></param>
+        public virtual void Draw(SpriteBatch spriteBatch, SpriteEffects effect)
+        {
+            spriteBatch.Draw(texture, Region, null, Color.White, 0f, Vector2.Zero, effect, 0f);
         }
     }
 }
